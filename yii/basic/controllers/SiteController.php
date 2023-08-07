@@ -54,6 +54,19 @@ class SiteController extends Controller
         ];
     }
 
+
+
+    //yii的示例操作demo；操作是可以被URL访问，而方法不能；操作跟方法的区别在于是否有action前缀
+    public function actionSay($message = 'Hello')
+    {
+        //render方法用于渲染视图文件--当一个操作中调用了 render() 方法时， 它将会按 views/控制器ID/视图名.php 路径加载 PHP 文件
+        //但是要有对应的视图文件：比如views/site下面的视图文件
+        //所以我们要创建say视图文件，在views下面的site创建
+        return $this->render('say', ['message' => $message]);
+    }
+
+
+
     /**
      * Displays homepage.
      *
