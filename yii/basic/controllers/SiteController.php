@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\EntryForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -65,6 +66,19 @@ class SiteController extends Controller
         return $this->render('say', ['message' => $message]);
     }
 
+    //entry
+    public function actionEntry()
+    {
+        $model = new EntryForm();
+
+        //Yii::$app 代表应用实例，它是一个全局可访问的单例。 同时它也是一个服务定位器， 能提供 request，response，db 等等特定功能的组件
+        if($model->load(Yii::$app->request->post()) && $model->validate()){
+            return $this->render('entry-confirm', ['model' => $model]);
+        } else {
+            // 无论是初始化显示还是数据验证错误
+            return $this->render('entry', ['model' => $model]);
+        }
+    }
 
 
     /**
