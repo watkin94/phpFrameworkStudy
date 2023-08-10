@@ -64,6 +64,8 @@ if (YII_ENV_DEV) {
     ];
 
     $config['bootstrap'][] = 'gii';
+
+    //gii配置
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
