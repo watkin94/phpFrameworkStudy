@@ -20,7 +20,7 @@ PHP框架的学习,主要是用于熟悉平时用得少的框架：
 - hyperf是一个高性能，高灵活性的渐进式PHP协程框架。内置协程服务器及大量常用的组件。
 
 - 安装：前提是环境内需要有swoole，可以用docker拉取 hyperf/hyperf镜像。然后composer拉取 
-```shell
+```dockerfile
 docker run --name hyperf \
 -v /workspace/skeleton:/data/project \
 -p 9501:9501 -it \
@@ -35,6 +35,12 @@ cd hyperf-skeleton
 php bin/hyperf.php start
 ```
 
-- 
+- 路由: 可以像config/routes.php那样配置路由。
+```php
+ // 这个是通过配置文件去定义路由
+ Router::post('/post', 'App\Controller\IndexController@post');
+
+ // 其次是通过注解去配置路由
+```
 
 
