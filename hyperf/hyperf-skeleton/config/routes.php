@@ -9,12 +9,13 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-//use Hyperf\HttpServer\Router\Router;
+use Hyperf\HttpServer\Router\Router;
 
-//Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
-//
-//Router::get('/favicon.ico', function () {
-//    return '';
-//});
-//
-//Router::get('/user','App\Controller\IndexController@user');
+Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
+
+Router::get('/favicon.ico', function () {
+    return '';
+});
+
+//新添加的测试路由
+Router::addRoute(['GET'], '/test2', 'App\Controller\IndexController@test');

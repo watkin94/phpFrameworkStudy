@@ -15,7 +15,7 @@ class IndexController extends AbstractController
 {
     public function index()
     {
-        $user = $this->request->input('user', 'Hyperf22');
+        $user = $this->request->input('user', 'Hyperf');
         $method = $this->request->getMethod();
 
         return [
@@ -24,13 +24,12 @@ class IndexController extends AbstractController
         ];
     }
 
-
-    public function user()
+    //测试控制器
+    public function test()
     {
-        $message = $this->request->input('user','watkin1994');
         return [
             'code'=>0,
-            'message'=>$message
+            'msg'=>'success'
         ];
     }
 }

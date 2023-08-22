@@ -12,37 +12,27 @@
     "description": "A coroutine framework that focuses on hyperspeed and flexible, specifically use for build microservices and middlewares.",
     "license": "Apache-2.0",
     "require": {
-        "php": ">=7.2",
-        "ext-swoole": ">=4.5",
-        "hyperf/cache": "~2.0.0",
-        "hyperf/command": "~2.0.0",
-        "hyperf/config": "~2.0.0",
-        "hyperf/db-connection": "~2.0.0",
-        "hyperf/framework": "~2.0.0",
-        "hyperf/guzzle": "~2.0.0",
-        "hyperf/http-server": "~2.0.0",
-        "hyperf/logger": "~2.0.0",
-        "hyperf/memory": "~2.0.0",
-        "hyperf/process": "~2.0.0",
-        "hyperf/redis": "~2.0.0",
-        "hyperf/database": "~2.0.0",
-        "hyperf/grpc-client": "~2.0.0",
-        "hyperf/grpc-server": "~2.0.0",
-        "hyperf/config-apollo": "~2.0.0",
-        "hyperf/constants": "~2.0.0",
-        "hyperf/async-queue": "~2.0.0",
-        "hyperf/amqp": "~2.0.0",
-        "hyperf/model-cache": "~2.0.0",
-        "hyperf/elasticsearch": "~2.0.0",
-        "hyperf/tracer": "~2.0.0"
+        "php": ">=8.0",
+        "hyperf/cache": "~3.0.0",
+        "hyperf/command": "~3.0.0",
+        "hyperf/config": "~3.0.0",
+        "hyperf/db-connection": "~3.0.0",
+        "hyperf/framework": "~3.0.0",
+        "hyperf/guzzle": "~3.0.0",
+        "hyperf/http-server": "~3.0.0",
+        "hyperf/logger": "~3.0.0",
+        "hyperf/memory": "~3.0.0",
+        "hyperf/process": "~3.0.0",
+        "hyperf/database": "~3.0.0",
+        "hyperf/constants": "~3.0.0"
     },
     "require-dev": {
-        "swoole/ide-helper": "^4.5",
-        "friendsofphp/php-cs-fixer": "^2.14",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "hyperf/devtool": "~3.0.0",
+        "hyperf/testing": "~3.0.0",
         "mockery/mockery": "^1.0",
-        "phpstan/phpstan": "^0.12",
-        "hyperf/devtool": "~2.0.0",
-        "hyperf/testing": "~2.0.0"
+        "phpstan/phpstan": "^1.0",
+        "swoole/ide-helper": "^5.0"
     },
     "suggest": {
         "ext-openssl": "Required to use HTTPS.",
@@ -64,6 +54,10 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
     "extra": [],
     "scripts": {
         "post-root-package-install": [
@@ -72,9 +66,12 @@
         "post-autoload-dump": [
             "rm -rf runtime/container"
         ],
-        "test": "co-phpunit -c phpunit.xml --colors=always",
+        "test": "co-phpunit --prepend test/bootstrap.php -c phpunit.xml --colors=always",
         "cs-fix": "php-cs-fixer fix $1",
         "analyse": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app ./config",
-        "start": "php ./bin/hyperf.php start"
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "php ./bin/hyperf.php start"
+        ]
     }
 }
