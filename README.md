@@ -43,5 +43,13 @@ php bin/hyperf.php start
 
 - 事件：感觉是对swoole事件的进一步封装
 
+- 编程的注意事项:建议在开发之前先读一遍文档下面的 快速入门=>常见问题
+> 1.不能用全局变量； 
+
+
+### hyperf生命周期
+- 因为hyperf是基于swoole的，要理解之前先理解swoole的生命周期
+> swoole：启动阶段=>master进程管理子进程的生命周期以及处理信号，
+
 
 
