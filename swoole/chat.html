@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <span id="span"></span>
+    <br>
+    <textarea name="" id="textare" cols="30" rows="10"></textarea>
+    <br/>
+    发送信息:<input type="text" id="input"><br>
+    接受者序号: <input type="number" id="num" style="width: 50px;">
+    <br>
+    <button onclick="send()">发送</button>
+</body>
+<script>
+    var wsServer = 'ws://127.0.0.1:9502';
+    var websocket = new WebSocket(wsServer);
+    websocket.onopen = function (evt) {
+        console.log('连接成功');
+    };
+
+    websocket.onclose = function (evt) {
+        console.log("Disconnected");
+    };
+
+    websocket.onmessage = function (evt) {
+        console.log('获取服务端信息:' + evt.data);
+        var re = JSON.parse(evt.data)
+        if(re.type == 'connect'){
+            var myspan = document.getElementById("span"); // 获取输入框元素
+            myspan.innerHTML = "<strong>连接成功! 序号为:"+ re.data + " </strong>";
+        }else{
+            var textare = document.getElementById("textare"); // 获取输入框元素
+            textare.value = textare.value + "\n" + re.data;
+        }
+
+    };
+
+    websocket.onerror = function (evt, e) {
+        console.log('Error occured: ' + evt.data);
+    };
+
+    function send(){
+        // 向服务器推送信息
+        var inputElement = document.getElementById("input"); // 获取输入框元素
+        var inputNum = document.getElementById("num"); // 获取输入框元素
+        var inputValue = inputElement.value; // 获取输入框的内容
+        var fd = inputNum.value;
+        var data = {msg:inputValue , fd: fd };
+        data_json = JSON.stringify(data);
+        console.log(data_json);
+        websocket.send(data_json);
+        inputElement.value = '';    //发送后清空对话框
+    }
+</script>
+</html>
